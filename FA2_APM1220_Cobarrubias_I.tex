@@ -1,0 +1,202 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{bm}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+
+\section*{Problem 3.1 (8 points)}
+
+\noindent Given $X = \begin{pmatrix} 9 & 1 \\ 5 & 3 \\ 1 & 2 \end{pmatrix}$, so $n=3$, $p=2$. The sample mean is $\bar x_1 = \frac{9+5+1}{3}=5$, $\bar x_2=\frac{1+3+2}{3}=2$, so $\bar{\bm x}=(5,2)'$.
+
+\subsection*{(a) Scatter plot in $p=2$ dimensions}
+The three rows of $X$ are plotted as points $(9,1),(5,3),(1,2)$ in the $(x_1,x_2)$-plane, with the mean $\bar{\bm x}=(5,2)$ marked as the centroid of the cloud.
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+    \draw[-Stealth] (-1,0) -- (10.5,0) node[right] {$x_1$};
+    \draw[-Stealth] (0,-1) -- (0,4.5) node[above] {$x_2$};
+    \foreach \x in {1,...,9} \draw (\x,-0.1) -- (\x,0.1);
+    \foreach \y in {1,2,3,4} \draw (-0.1,\y) -- (0.1,\y);
+    \filldraw[blue] (9,1) circle (2.5pt) node[below right] {$(9,1)$};
+    \filldraw[blue] (5,3) circle (2.5pt) node[above right] {$(5,3)$};
+    \filldraw[blue] (1,2) circle (2.5pt) node[above left] {$(1,2)$};
+    \filldraw[red] (5,2) circle (3pt) node[below right] {$\bar{\bm x}=(5,2)$};
+\end{tikzpicture}
+\end{center}
+
+\subsection*{(b) $n=3$-dimensional representation and deviation vectors}
+Each column (variable) of $X$ is plotted as a vector in $\mathbb{R}^n=\mathbb{R}^3$: $\bm y_1=(9,5,1)'$, $\bm y_2=(1,3,2)'$. The vectors $\bar x_1\bm 1=(5,5,5)'$ and $\bar x_2\bm 1=(2,2,2)'$ lie on the equiangular line (direction $\bm 1=(1,1,1)'$). The deviation vectors are
+\[
+\bm d_1=\bm y_1-\bar x_1\bm 1=(4,0,-4)', \qquad \bm d_2=\bm y_2-\bar x_2\bm 1=(-1,1,0)'.
+\]
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+    \draw[-Stealth] (0,0,0) -- (5,0,0) node[right] {axis 1};
+    \draw[-Stealth] (0,0,0) -- (0,4,0) node[above] {axis 2};
+    \draw[-Stealth] (0,0,0) -- (-2,-2,0) node[below left] {axis 3};
+    \draw[dashed, gray] (-1.5,-1.5,0) -- (3,3,0) node[right] {\footnotesize $\bm 1$ (equiangular line)};
+    \draw[-Stealth, thick, blue] (0,0,0) -- (1.8,1.8,0) node[midway, above] {$\bar x_1\bm 1$};
+    \draw[-Stealth, thick, red] (1.8,1.8,0) -- (2.8,2.8,0);
+    \node[blue] at (3.3,2.9) {$\bm y_1$};
+    \draw[-Stealth, thick, blue] (0,0,0) -- (0.7,0.7,0) node[midway,below] {$\bar x_2\bm 1$};
+    \draw[-Stealth, thick, red] (0.7,0.7,0) -- (0.4,1.1,0);
+    \node[blue] at (0.2,1.3) {$\bm y_2$};
+\end{tikzpicture}
+\end{center}
+$\bm y_1$ and $\bm y_2$ decompose into a component along the equiangular line, $\bar x_j\bm 1$, plus an orthogonal deviation component $\bm d_j$.
+
+\subsection*{(c) Deviation vectors from the origin, lengths, angle, and relation to $S_n$ and $R$}
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+    \draw[-Stealth] (-2,0) -- (5,0);
+    \draw[-Stealth] (0,-1) -- (0,3);
+    \draw[-Stealth, thick, red] (0,0) -- (3,-1.5) node[right] {$\bm d_1=(4,0,-4)'$};
+    \draw[-Stealth, thick, blue] (0,0) -- (-1,1) node[above left] {$\bm d_2=(-1,1,0)'$};
+    \draw[dashed] (0.4,0.1) arc (14:135:0.5);
+    \node at (0.0,0.55) {\footnotesize $\theta$};
+\end{tikzpicture}
+\end{center}
+Lengths: $\|\bm d_1\|=\sqrt{4^2+0^2+(-4)^2}=\sqrt{32}=4\sqrt2$, $\|\bm d_2\|=\sqrt{(-1)^2+1^2+0^2}=\sqrt2$.
+
+Angle: $\bm d_1\cdot\bm d_2=(4)(-1)+(0)(1)+(-4)(0)=-4$, so
+\[
+\cos\theta=\frac{\bm d_1\cdot\bm d_2}{\|\bm d_1\|\|\bm d_2\|}=\frac{-4}{(4\sqrt2)(\sqrt2)}=\frac{-4}{8}=-\frac12, \qquad \theta=120^\circ.
+\]
+
+Relation to $S_n$ and $R$: using the divisor-$n$ covariance matrix, $(S_n)_{jk}=\bm d_j\cdot\bm d_k/n$, so
+\[
+S_n=\begin{pmatrix}32/3 & -4/3\\ -4/3 & 2/3\end{pmatrix}, \qquad r_{12}=\frac{(S_n)_{12}}{\sqrt{(S_n)_{11}(S_n)_{22}}}=\frac{-4/3}{\sqrt{(32/3)(2/3)}}=\frac{-4/3}{8/3}=-\frac12.
+\]
+Thus $r_{12}=\cos\theta=-\tfrac12$: the squared length of a deviation vector divided by $n$ gives that variable's sample variance, and the cosine of the angle between two deviation vectors equals the sample correlation between the corresponding variables. The obtuse angle ($120^\circ$) reflects the negative association between $x_1$ and $x_2$.
+
+\newpage
+\section*{Problem 3.6 (8 points)}
+
+\noindent Given $X=\begin{pmatrix}-1 & 3 & -2\\ 2 & 4 & 2\\ 5 & 2 & 3\end{pmatrix}$, $n=3$, $p=3$. Means: $\bar x_1=\frac{-1+2+5}{3}=2$, $\bar x_2=\frac{3+4+2}{3}=3$, $\bar x_3=\frac{-2+2+3}{3}=1$, so $\bar{\bm x}'=(2,3,1)$.
+
+\subsection*{(a) Deviation matrix and rank}
+\[
+X-\bm 1\bar{\bm x}'=\begin{pmatrix}-1-2 & 3-3 & -2-1\\ 2-2 & 4-3 & 2-1\\ 5-2 & 2-3 & 3-1\end{pmatrix}=\begin{pmatrix}-3 & 0 & -3\\ 0 & 1 & 1\\ 3 & -1 & 2\end{pmatrix}=D.
+\]
+Since mean-centering forces $\bm 1'D=\bm 1'X-n\bar{\bm x}'=\bm 0'$, the three rows of $D$ (as vectors in $\mathbb{R}^3$) must sum to $\bm 0$: indeed, row$_1$+row$_2$+row$_3=(-3+0+3,\,0+1-1,\,-3+1+2)=(0,0,0)$. This is a nontrivial linear dependence among the rows, so $\operatorname{rank}(D)\le 2<3$. Since row$_1=(-3,0,-3)$ and row$_2=(0,1,1)$ are not proportional, $\operatorname{rank}(D)=2$ exactly. \textbf{$D$ is not of full rank} — this is a general fact: the mean-corrected data matrix always satisfies $\operatorname{rank}(X-\bm 1\bar{\bm x}')\le n-1$.
+
+\subsection*{(b) Sample covariance matrix $S$ and generalized variance $|S|$}
+With columns of $D$ given by $\bm d_1=(-3,0,3)'$, $\bm d_2=(0,1,-1)'$, $\bm d_3=(-3,1,2)'$,
+\[
+D'D=\begin{pmatrix}18 & -3 & 15\\ -3 & 2 & -1\\ 15 & -1 & 14\end{pmatrix}, \qquad S=\frac{D'D}{n-1}=\frac{D'D}{2}=\begin{pmatrix}9 & -\tfrac32 & \tfrac{15}{2}\\[1mm] -\tfrac32 & 1 & -\tfrac12\\[1mm] \tfrac{15}{2} & -\tfrac12 & 7\end{pmatrix}.
+\]
+Because $D$ has rank $2<3$, $D'D$ is singular ($\det(D'D)=0$), and since $S$ is a scalar multiple of $D'D$, $\det(S)=0$ as well. Direct check:
+\[
+\det(D'D)=18(28-1)+3(-42+15)+15(3-30)=486-81-405=0 \implies |S|=0.
+\]
+\textbf{Geometric interpretation:} the generalized sample variance $|S|$ is proportional to the squared volume of the parallelotope spanned by the deviation vectors $\bm d_1,\bm d_2,\bm d_3$ in $\mathbb{R}^n$. Since $|S|=0$, this "volume" is zero — the three deviation vectors are linearly dependent and so lie in a plane (a 2-dimensional subspace) rather than spanning all of $\mathbb{R}^3$. The data cloud is degenerate: it has no spread in one particular direction.
+
+\subsection*{(c) Total sample variance}
+The total sample variance is $\operatorname{tr}(S)=S_{11}+S_{22}+S_{33}=9+1+7=17$.
+
+\newpage
+\section*{Problem 3.9 (8 points)}
+
+\noindent Given $X=\begin{pmatrix}12&17&29\\18&20&38\\14&16&30\\20&18&38\\16&19&35\end{pmatrix}$, $n=5$, $p=3$, with $x_3=x_1+x_2$ for every row.
+
+Means: $\bar x_1=\frac{12+18+14+20+16}{5}=\frac{80}{5}=16$, $\bar x_2=\frac{17+20+16+18+19}{5}=\frac{90}{5}=18$, $\bar x_3=\frac{29+38+30+38+35}{5}=\frac{170}{5}=34=\bar x_1+\bar x_2$.
+
+\subsection*{(a) Mean-corrected data matrix and linear dependence}
+\[
+D=X-\bm 1\bar{\bm x}'=\begin{pmatrix}-4 & -1 & -5\\ 2 & 2 & 4\\ -2 & -2 & -4\\ 4 & 0 & 4\\ 0 & 1 & 1\end{pmatrix}.
+\]
+Column-by-column, $d_{i3}=d_{i1}+d_{i2}$ for every row $i$ (e.g. row 1: $-4+(-1)=-5$; row 2: $2+2=4$; etc.), so the third column of $D$ equals the sum of the first two. This gives the dependency vector
+\[
+\bm a'=[a_1,a_2,a_3]=[1,\,1,\,-1], \qquad \text{such that } D\bm a=\bm 0.
+\]
+
+\subsection*{(b) Sample covariance matrix, zero generalized variance, and $S\bm a=\bm 0$}
+With columns $\bm d_1=(-4,2,-2,4,0)'$, $\bm d_2=(-1,2,-2,0,1)'$, $\bm d_3=(-5,4,-4,4,1)'$,
+\[
+D'D=\begin{pmatrix}40 & 12 & 52\\ 12 & 10 & 22\\ 52 & 22 & 74\end{pmatrix}, \qquad S=\frac{D'D}{n-1}=\frac{D'D}{4}=\begin{pmatrix}10 & 3 & 13\\ 3 & \tfrac52 & \tfrac{11}{2}\\ 13 & \tfrac{11}{2} & \tfrac{37}{2}\end{pmatrix}.
+\]
+Since column 3 of $D$ is a linear combination of columns 1 and 2 ($\bm d_1+\bm d_2-\bm d_3=\bm 0$), $\operatorname{rank}(D)\le2<3$, so $D'D$ (and hence $S$) is singular: $|S|=0$, i.e. the generalized sample variance is zero.
+
+Now verify $S\bm a=\bm 0$ for $\bm a=(1,1,-1)'$:
+\[
+S\bm a=\begin{pmatrix}10(1)+3(1)+13(-1)\\ 3(1)+\tfrac52(1)+\tfrac{11}{2}(-1)\\ 13(1)+\tfrac{11}{2}(1)+\tfrac{37}{2}(-1)\end{pmatrix}=\begin{pmatrix}10+3-13\\ 3+2.5-5.5\\ 13+5.5-18.5\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}.
+\]
+Since $S\bm a=\bm 0=0\cdot\bm a$, the vector $\bm a$ (rescaled to unit length if desired) is an eigenvector of $S$ corresponding to eigenvalue $0$.
+
+\subsection*{(c) Verifying $x_3=x_1+x_2$}
+Checking the original data row by row: $29=12+17$, $38=18+20$, $30=14+16$, $38=20+18$, $35=16+19$ — all hold exactly. Hence $x_3=x_1+x_2$ for every observation, i.e. $X\bm a=\bm 0$ with $a_1=1,a_2=1,a_3=-1$, confirming the exact linear dependence among the three columns.
+
+\newpage
+\section*{Problem 3.18 (8 points)}
+
+\noindent Given $\bar{\bm x}=\begin{pmatrix}0.766\\0.508\\0.438\\0.161\end{pmatrix}$, $S=\begin{pmatrix}0.856 & 0.635 & 0.173 & 0.096\\ 0.635 & 0.568 & 0.127 & 0.067\\ 0.173 & 0.127 & 0.171 & 0.039\\ 0.096 & 0.067 & 0.039 & 0.043\end{pmatrix}$ (symmetric, so $S_{23}=S_{32}=0.127$).
+
+\subsection*{(a) Mean and variance of total energy consumption}
+Total consumption is $T=x_1+x_2+x_3+x_4=\bm c'\bm x$ with $\bm c=(1,1,1,1)'$.
+\[
+\text{Mean: } \bm c'\bar{\bm x}=0.766+0.508+0.438+0.161=1.873.
+\]
+\[
+\text{Variance: } \bm c'S\bm c=\text{(sum of all entries of $S$)}=1.760+1.397+0.510+0.245=3.912,
+\]
+where the row sums are $0.856+0.635+0.173+0.096=1.760$, $0.635+0.568+0.127+0.067=1.397$, $0.173+0.127+0.171+0.039=0.510$, and $0.096+0.067+0.039+0.043=0.245$.
+
+\subsection*{(b) Mean, variance of the petroleum--gas excess, and its covariance with the total}
+Let $D=x_1-x_2=\bm b'\bm x$ with $\bm b=(1,-1,0,0)'$.
+\[
+\text{Mean: } \bm b'\bar{\bm x}=0.766-0.508=0.258.
+\]
+\[
+\text{Variance: } \bm b'S\bm b=S_{11}+S_{22}-2S_{12}=0.856+0.568-2(0.635)=1.424-1.270=0.154.
+\]
+\[
+\text{Covariance with $T$: } \bm b'S\bm c=(S_{11}+S_{12}+S_{13}+S_{14})-(S_{12}+S_{22}+S_{23}+S_{24})=1.760-1.397=0.363.
+\]
+
+\newpage
+\section*{Problem 3.20 (8 points)}
+
+\noindent Snow data, $n=25$ storms, $x_1=$ duration (hours), $x_2=$ clearing effort (hours).
+
+\subsection*{(a) Mean and variance of $x_2-x_1$ via summary statistics}
+Summing the 25 observations: $\sum x_1=235.5$, $\sum x_2=481.8$, $\sum x_1^2=2557.75$, $\sum x_2^2=10778.98$, $\sum x_1x_2=4861.90$.
+\[
+\bar x_1=\frac{235.5}{25}=9.42, \qquad \bar x_2=\frac{481.8}{25}=19.272.
+\]
+Corrected sums of squares and cross products:
+\[
+S_{xx}=\sum x_1^2-n\bar x_1^2=2557.75-25(9.42)^2=2557.75-2218.41=339.34,
+\]
+\[
+S_{yy}=\sum x_2^2-n\bar x_2^2=10778.98-25(19.272)^2=10778.98-9285.2496=1493.7304,
+\]
+\[
+S_{xy}=\sum x_1x_2-n\bar x_1\bar x_2=4861.90-25(9.42)(19.272)=4861.90-4538.556=323.344.
+\]
+Sample variances/covariance (divisor $n-1=24$):
+\[
+s_1^2=\frac{339.34}{24}=14.1392, \qquad s_2^2=\frac{1493.7304}{24}=62.2388, \qquad s_{12}=\frac{323.344}{24}=13.4727.
+\]
+Let $D=x_2-x_1$. Then
+\[
+\bar D=\bar x_2-\bar x_1=19.272-9.42=9.852,
+\]
+\[
+s_D^2=s_2^2+s_1^2-2s_{12}=62.2388+14.1392-2(13.4727)=76.3780-26.9453=49.4326.
+\]
+
+\subsection*{(b) Mean and variance of $x_2-x_1$ via individual differences}
+Computing $d_j=x_{2j}-x_{1j}$ for each of the 25 storms and summing directly: $\sum d_j=246.3$, so $\bar d=\frac{246.3}{25}=9.852$ — identical to part (a), as it must be, since the mean of a difference equals the difference of the means for any data set.
+
+For the variance, $\sum d_j^2=3612.93$, so
+\[
+S_{dd}=\sum d_j^2-n\bar d^2=3612.93-25(9.852)^2=3612.93-2426.5476=1186.3824,
+\]
+\[
+s_d^2=\frac{S_{dd}}{n-1}=\frac{1186.3824}{24}=49.4326.
+\]
+This matches the value obtained in (a) exactly. \textbf{Comparison:} the two approaches agree perfectly ($\bar d=9.852$, $s_d^2\approx49.4326$ both ways), confirming that computing summary statistics on the raw variables and combining them algebraically ($s_2^2+s_1^2-2s_{12}$) is equivalent to forming the differences first and then computing their mean and variance directly — the variance-of-a-linear-combination formula is exact, not an approximation.
+
+\end{document}
